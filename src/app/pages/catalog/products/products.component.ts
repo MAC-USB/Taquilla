@@ -41,8 +41,7 @@ export class  ProductsComponent {
       precio: {
         title: 'Precio',
         type: 'number',
-      },
-      
+      },      
     },
   };
 
@@ -52,13 +51,13 @@ export class  ProductsComponent {
   constructor(private service: ProductsService) {}
 
   /*Get product list from service*/
-  getProducts(){
-    this.service.getProductList().subscribe(data=>{
-      if(data){
+  getProducts() {
+    this.service.getProductList().subscribe(data => {
+      if(data) {
         this.productsList = data;
         this.source.load(this.productsList);
-      }else{
-        console.log('Error to load products list');
+      }else {
+        // console.log('Error to load products list');
       }
     })
   }
@@ -71,12 +70,12 @@ export class  ProductsComponent {
     }
   }
 
-  onCreateConfirm(event){
-    console.log(event);
+  onCreateConfirm(event) {
+    // console.log(event);
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getProducts();
-    
+
   }
 }

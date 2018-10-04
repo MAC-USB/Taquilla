@@ -17,7 +17,7 @@ import { ProductsService } from '../../@core/data/products.service';
   ],
   providers: [
     SmartTableService,
-    ProductsService
+    ProductsService,
   ],
 })
 export class CatalogModule { }

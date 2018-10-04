@@ -15,12 +15,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Catalogo',
     icon: 'nb-coffee-maker',
     link: '/pages/catalog',
-    children:[
+    children: [
       {
         title: 'Articulos',
-        link: '/pages/catalog/products'
-      }
-    ]
+        link: '/pages/catalog/products',
+      },
+    ],
   },
   {
     title: 'FEATURES',
