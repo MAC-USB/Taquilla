@@ -1,9 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
+// Components
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+
+  // Catalog Components
+  import { PaymentsComponent } from './catalog/payments/payments.component';
 
 const routes: Routes = [{
   path: '',
@@ -11,7 +15,12 @@ const routes: Routes = [{
   children: [{
     path: 'dashboard',
     component: DashboardComponent,
-  }, {
+  }, 
+  {
+    path: 'payments',
+    component: PaymentsComponent,
+  }, 
+  {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {

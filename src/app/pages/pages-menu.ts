@@ -11,6 +11,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'FEATURES',
     group: true,
   },
+  // Catalog Section
+  {
+    title: 'Catalog',
+    icon: 'nb-grid-a',
+    children: [
+      {
+        title:  'Payments',
+        link: '/pages/payments',
+      },
+    ],
+  },
   {
     title: 'UI Features',
     icon: 'nb-keypad',
