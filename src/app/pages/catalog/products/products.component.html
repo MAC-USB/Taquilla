@@ -5,7 +5,8 @@
 
   <nb-card-body>
     <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
-    (createConfirm)="onCreateConfirm($event)">
+    (createConfirm)="onCreateConfirm($event)"
+    (editConfirm)="updatesRecord($event)">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>

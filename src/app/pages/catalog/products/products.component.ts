@@ -25,6 +25,7 @@ export class  ProductsComponent implements OnInit {
       editButtonContent: '<i class="nb-edit"></i>',
       saveButtonContent: '<i class="nb-checkmark"></i>',
       cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
@@ -58,9 +59,16 @@ export class  ProductsComponent implements OnInit {
     })
   }
 
+  /*Delete especify product from service*/
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
+      let deleteProduct = event.data;
+      this.service.deleteProduct(deleteProduct).subscribe(data=>{
+
+          console.log('Se ha eliminado exitosamente');
+          event.confirm.resolve(event);
+
+      })
     } else {
       event.confirm.reject();
     }
@@ -72,6 +80,7 @@ export class  ProductsComponent implements OnInit {
     this.service.createProduct(newProduct).subscribe(data=>{
       if (data){
         event.confirm.resolve(event.newData);
+        this.getProducts();
         console.log('El producto se ha creado exitosamente');
       }else{
         console.log('Hubo un error')
@@ -79,6 +88,22 @@ export class  ProductsComponent implements OnInit {
     }
     )
   }
+
+  /*Update product list from service*/
+  updatesRecord(event) {
+    let newProduct = event.newData;
+    this.service.updateProduct(newProduct).subscribe(data=>{
+      if (data){
+        event.confirm.resolve(event.newData);
+        console.log('El producto se ha creado exitosamente');
+      }else{
+        console.log('Hubo un error')
+      }
+    }
+    )
+    
+  }
+
 
   ngOnInit() {
     this.getProducts();
