@@ -67,4 +67,13 @@ export class ClientsComponent {
       event.confirm.reject();
     }
   }
+
+  createClient(event): void{
+    this.clientService.addClient(event.newData as Clientmodel).subscribe(client =>{
+        if (client) {
+          event.confirm.resolve(event.newData)
+        }
+      }
+    )
+  }
 }
