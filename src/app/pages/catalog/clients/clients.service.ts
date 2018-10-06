@@ -24,11 +24,19 @@ export class ClientService {
         )
     }
 
-    addClient(client: Clientmodel):Observable<Clientemodel>{
+    addClient(client: Clientmodel):Observable<Clientmodel>{
         let apiURL =  `${this.API_URL}/cliente/`
         return this.http.post<Clientmodel>(apiURL, client, httpOptions).pipe(
             tap((client: Clientmodel) => console.log("Client added")),
-            catchError(this.handleError<Clientmodel>('addclient'))
+            catchError(this.handleError<Clientmodel>('addClient'))
+        )
+    }
+
+    updateClient(client: Clientmodel):Observable<any>{
+        let apiURL =  `${this.API_URL}/cliente/${client.cedula}/edit/`
+        return this.http.put(apiURL, client, httpOptions).pipe(
+            tap(_ => console.log(`update client ${client.cedula}`)),
+            catchError(this.handleError<any>('updateClient'))
         )
     }
 

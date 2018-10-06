@@ -23,6 +23,7 @@ export class ClientsComponent {
       editButtonContent: '<i class="nb-edit"></i>',
       saveButtonContent: '<i class="nb-checkmark"></i>',
       cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
@@ -32,6 +33,7 @@ export class ClientsComponent {
       cedula: {
         title: 'Cédula',
         type: 'string',
+        editable: false
       },
       nombre: {
         title: 'Nombre',
@@ -66,6 +68,16 @@ export class ClientsComponent {
     } else {
       event.confirm.reject();
     }
+  }
+
+  editClient(event):void {
+    console.log("alo")
+    this.clientService.updateClient(event.newData as Clientmodel).subscribe(client =>{
+        if (client){
+          event.confirm.resolve(event.newData)
+        }
+      }
+    )
   }
 
   createClient(event): void{
