@@ -64,14 +64,15 @@ export class ClientsComponent {
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
+      this.clientService.deleteClient(event.data as Clientmodel).subscribe(client =>{
+        this.getClients()
+      })
     } else {
       event.confirm.reject();
     }
   }
 
   editClient(event):void {
-    console.log("alo")
     this.clientService.updateClient(event.newData as Clientmodel).subscribe(client =>{
         if (client){
           event.confirm.resolve(event.newData)

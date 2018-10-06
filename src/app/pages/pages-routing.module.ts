@@ -14,7 +14,7 @@ const routes: Routes = [{
     component: DashboardComponent,
   }, {
     path: 'clients',
-    component: ClientsComponent
+    component: ClientsComponent,
   },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
