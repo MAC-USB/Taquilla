@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ProductsService } from '../../../@core/data/products.service';
 
@@ -11,11 +11,12 @@ import { ProductsService } from '../../../@core/data/products.service';
     }
   `],
 })
-export class  ProductsComponent {
+export class  ProductsComponent implements OnInit {
 
   /*Settings of ng2-smart-table configuration*/
   settings = {
     add: {
+      confirmCreate: true,
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
       cancelButtonContent: '<i class="nb-close"></i>',
@@ -34,17 +35,12 @@ export class  ProductsComponent {
         title: 'Nombre',
         type: 'string',
       },
-      pk: {
-        title: 'ID',
-        type: 'number',
-      },
       precio: {
         title: 'Precio',
         type: 'number',
-      },      
+      },
     },
   };
-
   private source: LocalDataSource = new LocalDataSource();
   private productsList;
 
@@ -53,7 +49,7 @@ export class  ProductsComponent {
   /*Get product list from service*/
   getProducts() {
     this.service.getProductList().subscribe(data => {
-      if(data) {
+      if (data) {
         this.productsList = data;
         this.source.load(this.productsList);
       }else {
@@ -70,8 +66,18 @@ export class  ProductsComponent {
     }
   }
 
+  /*Handler event to create and send new Product to service*/
   onCreateConfirm(event) {
-    // console.log(event);
+    let newProduct = event.newData;
+    this.service.createProduct(newProduct).subscribe(data=>{
+      if (data){
+        event.confirm.resolve(event.newData);
+        console.log('El producto se ha creado exitosamente');
+      }else{
+        console.log('Hubo un error')
+      }
+    }
+    )
   }
 
   ngOnInit() {

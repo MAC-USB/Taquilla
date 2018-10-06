@@ -31,5 +31,6 @@ export class ProductsService {
         // console.log('Error to create product on backend');
       }
     });
+    return observable;
   }
 }
