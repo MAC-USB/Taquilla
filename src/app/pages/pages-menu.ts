@@ -48,6 +48,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Tabs',
         link: '/pages/ui-features/tabs',
       },
+      {
+        title: 'Clients',
+        link: '/pages/clients'
+      }
     ],
   },
   {

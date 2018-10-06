@@ -5,9 +5,12 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import { ClientsComponent } from './catalog/clients/clients.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table'
 
 const PAGES_COMPONENTS = [
   PagesComponent,
+  ClientsComponent
 ];
 
 @NgModule({
@@ -16,6 +19,7 @@ const PAGES_COMPONENTS = [
     ThemeModule,
     DashboardModule,
     MiscellaneousModule,
+    Ng2SmartTableModule
   ],
   declarations: [
     ...PAGES_COMPONENTS,
