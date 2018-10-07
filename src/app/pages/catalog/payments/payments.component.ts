@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 // ng2-smart-table
 import { LocalDataSource } from 'ng2-smart-table';
 
+// Angular Modal Component
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'mac-payments',
   styleUrls: ['./payments.component.scss'],
@@ -69,13 +72,13 @@ export class PaymentsComponent {
   // Smart-Table Configurations
   settings = {
     mode: 'external',
-    hideSubHeader: true,
+    // hideSubHeader: true,
     actions: {
-      add: false,
+      edit: false,
       position: 'right',
     },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
@@ -115,9 +118,15 @@ export class PaymentsComponent {
 
   sourcePayments: LocalDataSource = new LocalDataSource();
 
-  constructor() {
+  constructor(
+    private modalService: NgbModal,
+  ) {
     console.log(this.payments);
     this.sourcePayments.load(this.payments);
+  }
+
+  onCreate(event, content){
+    this.modalService.open(content, { size: 'lg' });
   }
 
   onEdit(event){
