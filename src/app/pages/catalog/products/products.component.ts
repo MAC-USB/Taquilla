@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+
+// Services
 import { ProductsService } from '../../../@core/data/products.service';
 
 @Component({
   selector: 'ngx-smart-table',
   templateUrl: './products.component.html',
-  styles: [`
-    nb-card {
-      transform: translate3d(0, 0, 0);
-    }
-  `],
+  styleUrls: ['./products.component.scss'],
 })
 export class  ProductsComponent implements OnInit {
 
