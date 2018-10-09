@@ -13,6 +13,7 @@
   </nb-card-body>
 </nb-card>
 
+<!-- New Payment Modal -->
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Add Payment</h4>
@@ -21,7 +22,26 @@
     </button>
   </div>
   <div class="modal-body">
-    
+    <!-- Form to be send -->
+    <form #paymentsForm="ngForm" (ngSubmit)="submitPaymentsForm(paymentsForm.value)">
+      
+      <div class="form-group">
+        <label>Assistant</label>
+        <select class="form-control" required>
+          <option disabled>Select an assistant...</option>
+          <!-- <option *ngFor="let category of productCategories" [ngValue]="category">{{category?.name}}</option> -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Client</label>
+      </div>
+
+      <div class="form-group">
+        <label>Payment Method</label>
+      </div>
+
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-success btn-demo" (click)="modal.close('Close click')">Add</button>
