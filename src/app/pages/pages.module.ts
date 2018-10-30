@@ -6,7 +6,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { ClientsComponent } from './catalog/clients/clients.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table'
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ToasterModule } from 'angular2-toaster';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -19,7 +20,8 @@ const PAGES_COMPONENTS = [
     ThemeModule,
     DashboardModule,
     MiscellaneousModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    ToasterModule.forRoot()
   ],
   declarations: [
     ...PAGES_COMPONENTS,

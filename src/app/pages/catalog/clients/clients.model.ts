@@ -1,5 +1,5 @@
 export class Clientmodel {
-    cedula: number;
+    cedula: string;
     nombre: string;
     apellido: string;
     telefono: string

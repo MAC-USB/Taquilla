@@ -24,11 +24,11 @@ export class ClientService {
         )
     }
 
-    addClient(client: Clientmodel):Observable<Clientmodel>{
+    addClient(client: Clientmodel):Observable<any>{
         let apiURL =  `${this.API_URL}/cliente/`
         return this.http.post<Clientmodel>(apiURL, client, httpOptions).pipe(
             tap((client: Clientmodel) => console.log("Client added")),
-            catchError(this.handleError<Clientmodel>('addClient'))
+            catchError(this.handleError<any>('addClient'))
         )
     }
 
@@ -40,25 +40,17 @@ export class ClientService {
         )
     }
 
-    deleteClient(client: Clientmodel):Observable<Clientmodel>{
+    deleteClient(client: Clientmodel):Observable<any>{
         let apiURL = `${this.API_URL}/cliente/${client.cedula}/delete`
         return this.http.delete<Clientmodel>(apiURL, httpOptions).pipe(
             tap(_ => console.log(`delete client ${client.cedula}`)),
-            catchError(this.handleError<Clientmodel>('deleteClient'))
+            catchError(this.handleError<any>('deleteClient'))
         )
     }
 
     private handleError<T>(operation = 'operation', result?: T){
         return (error_object: any):Observable<T> =>{
-            console.log(error_object.error);
-            let error_message = "Your request return the following errors:\n"
-            for ( var key in error_object.error){
-                if (error_object.error.hasOwnProperty(key)){
-                    error_message += key + ": " + error_object.error[key] + "\n"
-                }
-            }
-            alert(error_message)
-            return of(result as T)
+            return of(error_object)
         }
     }
 }
