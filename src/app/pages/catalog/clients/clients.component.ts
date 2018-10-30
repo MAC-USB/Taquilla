@@ -3,7 +3,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Clientmodel } from './clients.model';
 import { SmartTableService } from '../../../@core/data/smart-table.service';
 import { ClientService } from './clients.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { error } from '@angular/compiler/src/util';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import 'style-loader!angular2-toaster/toaster.css';
@@ -52,7 +52,7 @@ export class ClientsComponent {
   };
 
   source: LocalDataSource = new LocalDataSource();
-  clientemodel = new Clientmodel();
+  clientemodel: Clientmodel = new Clientmodel();
   activeModal: any;
   config:ToasterConfig = new ToasterConfig({
     positionClass: 'toast-top-full-width',
@@ -60,6 +60,7 @@ export class ClientsComponent {
     tapToDismiss: true,
     showCloseButton: true
   });
+  edit: boolean = false;
 
 
   constructor(private service: SmartTableService,
@@ -74,20 +75,24 @@ export class ClientsComponent {
       this.source.load(clients))
   }
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.clientService.deleteClient(event.data as Clientmodel).subscribe(client =>{
+  onDeleteConfirm(client: Clientmodel): void {
+    this.clientService.deleteClient(client).subscribe(client =>{
+      if (client){
+        this.activeModal.dismiss()
         this.getClients()
-      })
-    } else {
-      event.confirm.reject();
-    }
+      }else{
+        this.showErrorMessage(client.error)
+      }
+    })
   }
 
-  editClient(event):void {
-    this.clientService.updateClient(event.newData as Clientmodel).subscribe(client =>{
-        if (client){
-          event.confirm.resolve(event.newData)
+  editClient():void {
+    this.clientService.updateClient(this.clientemodel).subscribe(client =>{
+        if (!client.error){
+          this.activeModal.dismiss()
+          this.getClients() 
+        }else{
+          this.showErrorMessage(client.error)
         }
       }
     )
@@ -97,6 +102,32 @@ export class ClientsComponent {
     this.activeModal =  this.modalService.open(content, { size: 'lg'})
   }
 
+  editClientModal(content, event): void{
+    this.edit = true
+    this.clientemodel = event.data
+    const modal_options : NgbModalOptions = {
+      size: 'lg',
+      beforeDismiss: () => {
+        this.clientemodel = new Clientmodel();
+        this.edit = false
+        return true
+      }
+    }
+    this.activeModal = this.modalService.open(content, modal_options)
+  }
+
+  deleteClientModal(content, event): void{
+    this.clientemodel = event.data
+    const modal_options : NgbModalOptions = {
+      size: 'lg',
+      beforeDismiss: () => {
+        this.clientemodel = new Clientmodel();
+        return true
+      }
+    }
+    this.activeModal = this.modalService.open(content, modal_options)
+  }
+
   createClient(): void{
     this.clientService.addClient(this.clientemodel).subscribe(client =>{
         if(client){
@@ -104,21 +135,21 @@ export class ClientsComponent {
             this.activeModal.dismiss()
             this.getClients() 
           }else{ 
-            this.toasterService.pop('warning', 'Your request has the following errors:\n',
-            this.getErrorMessage(client.error))
+            this.showErrorMessage(client.error)
           }
         }
       }
     )
   }
 
-  getErrorMessage(object): string{
+  showErrorMessage(object): void{
     let error_message = ""
     for ( var key in object){
         if (object.hasOwnProperty(key)){
             error_message += object[key] + "\n"
         }
     }
-    return error_message
+    this.toasterService.pop('warning', 'Your request has the following errors:\n',
+    error_message)
   }
 }

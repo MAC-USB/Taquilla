@@ -5,38 +5,43 @@
 
   <nb-card-body>
     <toaster-container [toasterconfig]="config"></toaster-container>
-    <ng2-smart-table [settings]="settings" [source]="source" (delete)="onDeleteConfirm($event)"
-    (create)="createClientModal(addclient)" (edit)="editClient($event)">
+    <ng2-smart-table [settings]="settings" [source]="source" 
+    (delete)="deleteClientModal(confirmdeleteclient, $event)"
+    (create)="createClientModal(client)" 
+    (edit)="editClientModal(client, $event)">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>
 
-<!-- Add client modal -->
-<ng-template #addclient let-modal let-d="dismiss">
+<!-- Client modal. Create and edit -->
+<ng-template #client let-modal let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Add client</h4>
+    <h4 class="modal-title" *ngIf="!edit">Add client</h4>
+    <h4 class="modal-title" *ngIf="edit">Edit client</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-    <!-- Form client -->
-  <form #addclientForm="ngForm" (ngSubmit)="createClient()">
+  <!-- Form for add and edit client -->
+  <form #clientForm="ngForm" (ngSubmit)="!edit ? createClient() : editClient()">
     <div class="modal-body">
-      <div class="form-group">
-        <label>Id</label>
-        <input type="text" class="form-control" id="cedula"
-        [(ngModel)]="clientemodel.cedula" name="cedula" maxlength="10" 
-        pattern="^[V|E|J|P][0-9]{5,9}$" #cedula="ngModel" required>
-      </div>
-
-      <div *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)"
-    class="alert alert-danger">
-
-        <div *ngIf="cedula.errors.required">
-          Id is required.
+      <div *ngIf="!edit">
+        <div class="form-group">
+          <label>Id</label>
+          <input type="text" class="form-control" id="cedula"
+          [(ngModel)]="clientemodel.cedula" name="cedula" maxlength="10" 
+          pattern="^[V|E|J|P]\-[0-9]{5,8}$" #cedula="ngModel" required>
         </div>
-        <div *ngIf="cedula.errors.pattern">
-          Id must have the format: [V|E|J|P]XXXXXX
+
+        <div *ngIf="cedula.invalid && !edit && (cedula.dirty || cedula.touched)"
+      class="alert alert-danger">
+
+          <div *ngIf="cedula.errors.required">
+            Id is required.
+          </div>
+          <div *ngIf="cedula.errors.pattern">
+            Id must have the format: [V|E|J|P]-XXXXXX
+          </div>
         </div>
       </div>
 
@@ -91,8 +96,27 @@
         </div>
       </div>
       <div class="modal-footer">
-          <button type="button"  type="submit" class="btn btn-success btn-demo" 
-          [disabled]="!addclientForm.form.valid">Add client</button>
+        <button type="button"  type="submit" class="btn btn-success btn-demo" 
+          [disabled]="!clientForm.form.valid">
+            <span *ngIf="!edit">Add client</span>
+            <span *ngIf="edit">Edit client</span>
+        </button>
       </div>
     </form>
+</ng-template>
+
+<!-- Confirm delete client modal -->
+<ng-template #confirmdeleteclient let-modal let-d="dismiss">
+  <div class="modal-header">
+    Delete client
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Are you sure you want to delete {{clientemodel.nombre}} client?
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="onDeleteConfirm(clientemodel)">delete</button>
+  </div>
 </ng-template>

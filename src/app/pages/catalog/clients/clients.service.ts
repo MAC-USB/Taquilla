@@ -33,7 +33,7 @@ export class ClientService {
     }
 
     updateClient(client: Clientmodel):Observable<any>{
-        let apiURL =  `${this.API_URL}/cliente/${client.cedula}/edit`
+        let apiURL =  `${this.API_URL}/cliente/${client.cedula}/edit/`
         return this.http.put(apiURL, client, httpOptions).pipe(
             tap(_ => console.log(`update client ${client.cedula}`)),
             catchError(this.handleError<any>('updateClient'))
@@ -41,7 +41,7 @@ export class ClientService {
     }
 
     deleteClient(client: Clientmodel):Observable<any>{
-        let apiURL = `${this.API_URL}/cliente/${client.cedula}/delete`
+        let apiURL = `${this.API_URL}/cliente/${client.cedula}/delete/`
         return this.http.delete<Clientmodel>(apiURL, httpOptions).pipe(
             tap(_ => console.log(`delete client ${client.cedula}`)),
             catchError(this.handleError<any>('deleteClient'))
