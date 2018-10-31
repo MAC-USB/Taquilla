@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { PreparadoresComponent } from './catalog/preparadores/preparadores.component';
 
 const routes: Routes = [{
   path: '',
@@ -35,14 +36,19 @@ const routes: Routes = [{
   }, {
     path: 'miscellaneous',
     loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
-  }, {
+  },{
+    path: 'preparadores',
+    component: PreparadoresComponent,
+  },{
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
-  }, {
+  },{
     path: '**',
     component: NotFoundComponent,
-  }],
+  },
+
+  ],
 }];
 
 @NgModule({

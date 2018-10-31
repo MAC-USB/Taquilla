@@ -12,6 +12,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
+    title: 'Catalog',
+    children: [
+      {
+        title: 'Prearadores',
+        link: '/pages/preparadores',
+      },
+    ],
+  },
+  {
     title: 'UI Features',
     icon: 'nb-keypad',
     link: '/pages/ui-features',

@@ -1,0 +1,133 @@
+<nb-card>
+  <nb-card-header>
+    Preparadores CRUD
+  </nb-card-header>
+
+  <nb-card-body>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+    <ng2-smart-table [settings]="settings" [source]="source" 
+    (delete)="deletePreparadorModal(confirmdeletepreparador, $event)"
+    (create)="createPreparadorModal(preparador)" 
+    (edit)="editPreparadorModal(preparador, $event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<!-- Preparador modal. Create and edit -->
+<ng-template #preparador let-modal let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="!edit">Add preparador</h4>
+    <h4 class="modal-title" *ngIf="edit">Edit preparador</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- Form for add and edit preparador -->
+  <form #preparadorForm="ngForm" (ngSubmit)="!edit ? createPreparador() : editPreparador()">
+    <div class="modal-body">
+      <div *ngIf="!edit">
+        <div class="form-group">
+          <label>Id</label>
+          <input type="text" class="form-control" id="cedula"
+          [(ngModel)]="preparadormodel.cedula" name="cedula" maxlength="10" 
+          pattern="^[V|E|J|P]\-[0-9]{5,8}$" #cedula="ngModel" required>
+        </div>
+
+        <div *ngIf="cedula.invalid && !edit && (cedula.dirty || cedula.touched)"
+      class="alert alert-danger">
+
+          <div *ngIf="cedula.errors.required">
+            Id is required.
+          </div>
+          <div *ngIf="cedula.errors.pattern">
+            Id must have the format: [V|E|J|P]-XXXXXX
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Initials</label>
+        <input type="text" class="form-control" id="initials"
+        [(ngModel)]="preparadormodel.iniciales" name="initials" maxlength="3"
+        pattern="[A-Z]+" #initials="ngModel" required>
+      </div>
+
+      <div *ngIf="initials.invalid && (initials.dirty || initials.touched)"
+      class="alert alert-danger">
+        <div *ngIf="initials.errors.required">
+          Initials are required.
+        </div>
+        <div *ngIf="initials.errors.pattern">
+          Initials cannot have numbers or specials characters
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" id="name"
+        [(ngModel)]="preparadormodel.nombre" name="name" maxlength="50"
+        pattern="[a-zA-Z]+" #name="ngModel" required>
+      </div>
+
+      <div *ngIf="name.invalid && (name.dirty || name.touched)"
+      class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.pattern">
+          Name cannot have numbers or specials characters
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Last name</label>
+        <input type="text" class="form-control" id="last_name"
+        [(ngModel)]="preparadormodel.apellido" name="last_name" maxlength="50"
+        pattern="[a-zA-Z]*" #last_name="ngModel" required>
+      </div>
+
+      <div *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)"
+      class="alert alert-danger">
+        <div *ngIf="last_name.errors.required">
+          Last name is required.
+        </div>
+        <div *ngIf="last_name.errors.pattern">
+          Last name cannot have numbers or specials characters
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" id="email"
+        [(ngModel)]="preparadormodel.correo" name="email" #email="ngModel" email>
+      </div>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="alert alert-danger">
+            Enter a valid email
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  type="submit" class="btn btn-success btn-demo" 
+          [disabled]="!preparadorForm.form.valid">
+            <span *ngIf="!edit">Add preparador</span>
+            <span *ngIf="edit">Edit preparador</span>
+        </button>
+      </div>
+    </form>
+</ng-template>
+
+<!-- Confirm delete preparador modal -->
+<ng-template #confirmdeletepreparador let-modal let-d="dismiss">
+  <div class="modal-header">
+    Delete preparador
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Are you sure you want to delete {{preparadormodel.nombre}} preparador?
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="onDeleteConfirm(preparadormodel)">delete</button>
+  </div>
+</ng-template>

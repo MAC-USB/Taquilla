@@ -1,77 +1,109 @@
+import { of, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { catchError, tap } from 'rxjs/operators'
+import { HttpHeaders, HttpClient } from '@angular/common/http'
 
-// Import RxJs required methods
-import 'rxjs/add/operator/map';
+const httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+}
+
 
 /**
- * Base service to do GET and POST methods globaly.
+ * Service with methods to add, edit or
+ * delete elements to backend.
+ *
  * @export
  * @class BaseService
  */
 @Injectable()
 export class BaseService {
 
-  // Variables Declaration.
-  base_path: string = ''; // Route to server.
-  json_path: string = ''; // Route to JSON (Only for testing).
+    API_URL:string = "https://mactaquilla.herokuapp.com/taquilla-api/"
 
-  /**
-   * Creates an instance of BaseService.
-   * @param {Http} http // Method to establish the http connection.
-   * @memberof BaseService
-   */
-  constructor(private http: Http) {}
+    /**
+     *Creates an instance of BaseService.
+     * @param {HttpClient} http
+     * @memberof BaseService
+     */
+    constructor(
+        private http: HttpClient
+    ){}
+    
+    /**
+     * Method to get elements from backend
+     *
+     * @param {string} endpoint // Provides the endpoint to access backend.
+     * @returns {Observable<any>} Return list of elements
+     * if everything is ok or error if not 
+     * @memberof BaseService
+     */
+    getBase(endpoint: string):Observable<any>{
+        let apiURL =  `${this.API_URL}${endpoint}`
+        return this.http.get(apiURL).pipe(
+            catchError(this.handleError('getBase'))
+        )
+    }
 
-  /**
-   * Get's data from backend.
-   * @param {string} endpoint // Provides the endpoint to access backend.
-   * @memberof BaseService
-  */
-  getBase(
-    endpoint: string 
-  ):Object {
-    return this.http.get(this.base_path + endpoint, null)
-      .map((res: any) => {
-        return res.json();
-      }
-    )
-  }
+    /**
+     * Method to add element to backend
+     *
+     * @param {object} element to be added
+     * @param {string} endpoint // Provides the endpoint to access backend.
+     * @returns {Observable<any>} Return element if everything is ok
+     * or error if not
+     * @memberof BaseService
+     */
+    addBase(element: Object, endpoint: string):Observable<any>{
+        let apiURL =  `${this.API_URL}${endpoint}`
+        return this.http.post(apiURL, element, httpOptions).pipe(
+            catchError(this.handleError<any>('addBase'))
+        )
+    }
 
-  /**
-   * Get's data from local JSON. Only for testing purposes.
-   * @param {string} endpoint // Provides the endpoint to access backend.
-   * @memberof BaseService
-  */
-  getJSON(
-    endpoint: string
-  ):Object {
-    return this.http.get(this.json_path + endpoint, null)
-      .map((res: any) => {
-        return res.json();
-      }
-    )
-  }
+    /**
+     * Method to edit element
+     *
+     * @param {Object} element to be edited
+     * @param {string} endpoint // Provides the endpoint to access backend.
+     * @returns {Observable<any>} return element if everythings is ok
+     * or error if not
+     * @memberof BaseService
+     */
+    updateBase(element: Object, endpoint: string):Observable<any>{
+        let apiURL =  `${this.API_URL}${endpoint}`
+        return this.http.put(apiURL, element, httpOptions).pipe(
+            catchError(this.handleError<any>('updateBase'))
+        )
+    }
 
-  /**
-   * Does modifications on backend. (Edit, Delete).
-   * @param {string} endpoint // Provides the endpoint to access backend.
-   * @param {Object} payload // JSON data to do modifications in backend data.
-   * @param {ResquestOptions} options // Configuration for permissions.
-   * @memberof BaseService
-  */
-  postBase(
-    endpoint: string, 
-    payload: Object, 
-    options: RequestOptions = null,
-  ):Object {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    options = new RequestOptions({ headers: headers });
-    return this.http.post(this.base_path + endpoint, payload, options)
-      .map((res: any) => {
-        return res.json();
-      }
-    )
-  };
+    /**
+     * Method to delete element
+     *
+     * @param {Object} element to be deleted
+     * @returns {Observable<any>} return null if everythings is ok
+     * or error if not
+     * @memberof BaseService
+     */
+    deleteBase(element: Object, endpoint:string):Observable<any>{
+        let apiURL = `${this.API_URL}${endpoint}`
+        return this.http.delete(apiURL, httpOptions).pipe(
+            catchError(this.handleError<any>('deleteBase'))
+        )
+    }
 
+    
+    /**
+     * Method to handle errors
+     *
+     * @private
+     * @template T
+     * @param {string} [operation='operation'] operation that generates the error
+     * @returns Observable with error info
+     * @memberof BaseService
+     */
+    private handleError<T>(operation = 'operation'){
+        return (error_object: any):Observable<T> =>{
+            return of(error_object)
+        }
+    }
 }
