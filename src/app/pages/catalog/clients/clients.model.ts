@@ -1,3 +1,7 @@
+/**
+ * @export
+ * @class Clientmodel
+ */
 export class Clientmodel {
     cedula: string;
     nombre: string;

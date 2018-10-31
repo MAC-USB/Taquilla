@@ -8,14 +8,22 @@ import { error } from '@angular/compiler/src/util';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import 'style-loader!angular2-toaster/toaster.css';
 
+/**
+ * Component for crud of clients
+ *
+ * @export
+ * @class ClientsComponent
+ */
 @Component({
   selector: 'mac-clients',
   templateUrl: './clients.component.html',
   styles: ['./clients.component.scss'],
   providers: [ClientService]
 })
+
 export class ClientsComponent {
 
+  // smart-table settings
   settings = {
     mode: 'external',
     actions: {
@@ -63,6 +71,14 @@ export class ClientsComponent {
   edit: boolean = false;
 
 
+  /**
+   *Creates an instance of ClientsComponent.
+   * @param {SmartTableService} service
+   * @param {ClientService} clientService
+   * @param {NgbModal} modalService
+   * @param {ToasterService} toasterService
+   * @memberof ClientsComponent
+   */
   constructor(private service: SmartTableService,
               private clientService: ClientService,
               private modalService: NgbModal,
@@ -70,11 +86,22 @@ export class ClientsComponent {
     this.getClients()
   }
 
+  /**
+   * Get clients and show their info on smart-table
+   *
+   * @memberof ClientsComponent
+   */
   getClients(): void{
     this.clientService.getClients().subscribe(clients =>
       this.source.load(clients))
   }
 
+  /**
+   * Confirm method for delete client
+   *
+   * @param {Clientmodel} client to be deleted
+   * @memberof ClientsComponent
+   */
   onDeleteConfirm(client: Clientmodel): void {
     this.clientService.deleteClient(client).subscribe(client =>{
       if (client){
@@ -86,6 +113,11 @@ export class ClientsComponent {
     })
   }
 
+  /**
+   * Method that makes the update for a client info
+   *
+   * @memberof ClientsComponent
+   */
   editClient():void {
     this.clientService.updateClient(this.clientemodel).subscribe(client =>{
         if (!client.error){
@@ -98,10 +130,23 @@ export class ClientsComponent {
     )
   }
 
+  /**
+   * Activate create client modal
+   *
+   * @param {*} content Template to be render
+   * @memberof ClientsComponent
+   */
   createClientModal(content): void{
     this.activeModal =  this.modalService.open(content, { size: 'lg'})
   }
 
+  /**
+   * Activate edit client modal
+   *
+   * @param {*} content Template to be render
+   * @param {*} event with client info
+   * @memberof ClientsComponent
+   */
   editClientModal(content, event): void{
     this.edit = true
     this.clientemodel = event.data
@@ -116,6 +161,13 @@ export class ClientsComponent {
     this.activeModal = this.modalService.open(content, modal_options)
   }
 
+  /**
+   * Delete client modal
+   *
+   * @param {*} content to be render
+   * @param {*} event with client info
+   * @memberof ClientsComponent
+   */
   deleteClientModal(content, event): void{
     this.clientemodel = event.data
     const modal_options : NgbModalOptions = {
@@ -128,6 +180,11 @@ export class ClientsComponent {
     this.activeModal = this.modalService.open(content, modal_options)
   }
 
+  /**
+   * Add client to DB
+   *
+   * @memberof ClientsComponent
+   */
   createClient(): void{
     this.clientService.addClient(this.clientemodel).subscribe(client =>{
         if(client){
@@ -142,6 +199,13 @@ export class ClientsComponent {
     )
   }
 
+  /**
+   * Method to show notifications
+   * when some error occurs
+   *
+   * @param {*} object with error info
+   * @memberof ClientsComponent
+   */
   showErrorMessage(object): void{
     let error_message = ""
     for ( var key in object){
