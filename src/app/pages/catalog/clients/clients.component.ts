@@ -104,7 +104,7 @@ export class ClientsComponent {
    */
   onDeleteConfirm(client: Clientmodel): void {
     this.clientService.deleteClient(client).subscribe(client =>{
-      if (client){
+      if (client == null){
         this.activeModal.dismiss()
         this.getClients()
       }else{
