@@ -27,9 +27,11 @@ export class PreparadoresComponent {
   settings = {
     mode: 'external',
     actions: {
+      columnTitle: 'Acciones',
       position: 'right'
     },
     add: {
+      title:'Agregar',
       addButtonContent: '<i class="nb-plus"></i>'
     },
     edit: {
@@ -40,24 +42,24 @@ export class PreparadoresComponent {
     },
     columns: {
       cedula: {
-        title: 'Id',
+        title: 'Cédula',
         type: 'string',
         editable: false
       },
       iniciales: {
-        title: 'Initials',
+        title: 'Iniciales',
         type: 'string',
       },
       nombre: {
-        title: 'Name',
+        title: 'Nombre',
         type: 'string',
       },
       apellido: {
-        title: 'Last name',
+        title: 'Apellido',
         type: 'string',
       },
       correo: {
-        title: 'Email',
+        title: 'Correo',
         type: 'string',
       },
     },
