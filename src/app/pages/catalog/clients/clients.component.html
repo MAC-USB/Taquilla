@@ -1,6 +1,6 @@
 <nb-card>
   <nb-card-header>
-    Smart Table
+    Clientes CRUD
   </nb-card-header>
 
   <nb-card-body>
@@ -16,8 +16,8 @@
 <!-- Client modal. Create and edit -->
 <ng-template #client let-modal let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" *ngIf="!edit">Add client</h4>
-    <h4 class="modal-title" *ngIf="edit">Edit client</h4>
+    <h4 class="modal-title" *ngIf="!edit">Añadir cliente</h4>
+    <h4 class="modal-title" *ngIf="edit">Editar cliente</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -27,7 +27,7 @@
     <div class="modal-body">
       <div *ngIf="!edit">
         <div class="form-group">
-          <label>Id</label>
+          <label>Cédula</label>
           <input type="text" class="form-control" id="cedula"
           [(ngModel)]="clientemodel.cedula" name="cedula" maxlength="10" 
           pattern="^[V|E|J|P]\-[0-9]{5,8}$" #cedula="ngModel" required>
@@ -37,16 +37,16 @@
       class="alert alert-danger">
 
           <div *ngIf="cedula.errors.required">
-            Id is required.
+            La Cédula es obligatoria
           </div>
           <div *ngIf="cedula.errors.pattern">
-            Id must have the format: [V|E|J|P]-XXXXXX
+            La cédula debe tener el siguiente formato: [V|E|J|P]-XXXXXX
           </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Name</label>
+        <label>Nombre</label>
         <input type="text" class="form-control" id="name"
         [(ngModel)]="clientemodel.nombre" name="name" maxlength="50"
         pattern="[a-zA-Z]*" #name="ngModel" required>
@@ -55,15 +55,15 @@
       <div *ngIf="name.invalid && (name.dirty || name.touched)"
       class="alert alert-danger">
         <div *ngIf="name.errors.required">
-          Name is required.
+         El nombre es obligatorio
         </div>
         <div *ngIf="name.errors.pattern">
-          Name cannot have numbers or specials characters
+          El nombre no puede tener caracteres especiales
         </div>
       </div>
 
       <div class="form-group">
-        <label>Last name</label>
+        <label>Apellido</label>
         <input type="text" class="form-control" id="last_name"
         [(ngModel)]="clientemodel.apellido" name="last_name" maxlength="50"
         pattern="[a-zA-Z]*" #last_name="ngModel" required>
@@ -72,15 +72,15 @@
       <div *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)"
       class="alert alert-danger">
         <div *ngIf="last_name.errors.required">
-          Last name is required.
+          El apellido es obligatorio
         </div>
         <div *ngIf="last_name.errors.pattern">
-          Last name cannot have numbers or specials characters
+          El apellido no puede tener caracteres especiales
         </div>
       </div>
 
       <div class="form-group">
-        <label>Phone</label>
+        <label>Teléfono</label>
         <input type="text" class="form-control" id="phone"
         [(ngModel)]="clientemodel.telefono" name="phone" maxlength="15"
         pattern="^[(]?\d{3}[)]?\s?-?\s?\d{3}\s?-?\s?\d{4}$" #phone="ngModel" required>
@@ -88,18 +88,18 @@
         <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
         class="alert alert-danger">
           <div *ngIf="phone.errors.required">
-            Phone is required.
+            El teléfono es obligatorio
           </div>
           <div *ngIf="phone.errors.pattern">
-            Phone format must be xxx-xxxxxxx, xxx-xxx-xxxx or xxxxxxxxxx
+            El formato del teléfono debe ser xxx-xxxxxxx, xxx-xxx-xxxx o xxxxxxxxxx
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button"  type="submit" class="btn btn-success btn-demo" 
           [disabled]="!clientForm.form.valid">
-            <span *ngIf="!edit">Add client</span>
-            <span *ngIf="edit">Edit client</span>
+            <span *ngIf="!edit">Añadir cliente</span>
+            <span *ngIf="edit">Editar cliente</span>
         </button>
       </div>
     </form>
@@ -108,15 +108,15 @@
 <!-- Confirm delete client modal -->
 <ng-template #confirmdeleteclient let-modal let-d="dismiss">
   <div class="modal-header">
-    Delete client
+    Eliminar cliente
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    Are you sure you want to delete {{clientemodel.nombre}} client?
+    Estas que seguro que deseas eliminar al cliente {{clientemodel.nombre}}?
   </div>
   <div class="modal-footer">
-    <button class="btn btn-danger" (click)="onDeleteConfirm(clientemodel)">delete</button>
+    <button class="btn btn-danger" (click)="onDeleteConfirm(clientemodel)">Eliminar</button>
   </div>
 </ng-template>

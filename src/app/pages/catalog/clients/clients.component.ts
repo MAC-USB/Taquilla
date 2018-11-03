@@ -27,6 +27,7 @@ export class ClientsComponent {
   settings = {
     mode: 'external',
     actions: {
+      columnTitle: 'Acciones',
       position: 'right'
     },
     add: {
@@ -40,20 +41,20 @@ export class ClientsComponent {
     },
     columns: {
       cedula: {
-        title: 'id',
+        title: 'Cédula',
         type: 'string',
         editable: false
       },
       nombre: {
-        title: 'Name',
+        title: 'Nombre',
         type: 'string',
       },
       apellido: {
-        title: 'Last name',
+        title: 'Apellido',
         type: 'string',
       },
       telefono: {
-        title: 'Phone',
+        title: 'Teléfono',
         type: 'string',
       },
     },
@@ -149,7 +150,7 @@ export class ClientsComponent {
    */
   editClientModal(content, event): void{
     this.edit = true
-    this.clientemodel = event.data
+    Object.assign(this.clientemodel, event.data)
     const modal_options : NgbModalOptions = {
       size: 'lg',
       beforeDismiss: () => {
@@ -213,7 +214,7 @@ export class ClientsComponent {
             error_message += object[key] + "\n"
         }
     }
-    this.toasterService.pop('warning', 'Your request has the following errors:\n',
+    this.toasterService.pop('warning', 'Tu solicitud presentó los siguientes errores:\n',
     error_message)
   }
 }
