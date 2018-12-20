@@ -1,12 +1,91 @@
-<nb-card>
+ <nb-card>
   <nb-card-header>
     Articulos
   </nb-card-header>
 
   <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
-    (createConfirm)="onCreateConfirm($event)"
-    (editConfirm)="updatesRecord($event)">
+      <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+    <!-- <toaster-container [toasterconfig]="config"></toaster-container> -->
+    <ng2-smart-table [settings]="settings" [source]="source" (delete)="deleteProductModal(delproductModalhtml, $event)"
+    (create)="addProductModal(productModal)"
+    (edit)="editProductModal(productModal, $event)">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>
+
+<!-- Product modal. Create and edit -->
+<ng-template #productModal let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="!edit">Añadir producto</h4>
+    <h4 class="modal-title" *ngIf="edit">Editar producto</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- Form for add and edit product -->
+  <form #productForm="ngForm" (ngSubmit)="!edit ? addProduct() : editProduct()">
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" id="nombre"
+        [(ngModel)]="product.nombre" name="nombre" maxlength="50" 
+         pattern="^[a-zA-Záéíóúñ/ ]+$" #nombre="ngModel" required>
+      </div>
+
+
+      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+      class="alert alert-danger">
+
+        <div *ngIf="nombre.errors.required">
+          El nombre es obligatorio
+        </div>
+        <div *ngIf="nombre.errors.pattern">
+          El nombre no puede tener caracteres especiales
+        </div>
+      </div>
+
+    
+      
+      <div class="form-group">
+        <label>Precio</label>
+        <input type="number" step="any" class="form-control" id="precio"
+        [(ngModel)]="product.precio" name="precio" min="0" max="9999999999"
+         #precio="ngModel" required>
+      </div>
+
+      <div *ngIf="precio.invalid && (precio.dirty || precio.touched)"
+      class="alert alert-danger">
+        <div *ngIf="precio.errors.required">
+         El precio es obligatorio/ Debe ser un numero
+        </div>
+        
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button"  type="submit" class="btn btn-success btn-demo" 
+        [disabled]="!productForm.form.valid">
+          <span *ngIf="!edit">Añadir producto</span>
+          <span *ngIf="edit">Editar producto</span>
+      </button>
+    </div>
+  </form>     
+</ng-template>
+
+
+<!-- Confirm delete product modal -->
+<ng-template #delproductModalhtml let-modal let-d="dismiss">
+    <div class="modal-header">
+      Eliminar producto
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Estas que seguro que deseas eliminar al producto {{product.nombre}}?
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" (click)="deleteProduct(product)">Eliminar</button>
+    </div>
+  </ng-template>
