@@ -4,6 +4,6 @@
  */
 export class Productmodel {
     pk: number;
-    nombre: string;
-    precio: number;
+    name: string;
+    price: number;
 }

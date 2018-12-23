@@ -27,19 +27,19 @@
     <div class="modal-body">
       <div class="form-group">
         <label>Nombre</label>
-        <input type="text" class="form-control" id="nombre"
-        [(ngModel)]="product.nombre" name="nombre" maxlength="50" 
-         pattern="^[a-zA-Záéíóúñ/ ]+$" #nombre="ngModel" required>
+        <input type="text" class="form-control" id="name"
+        [(ngModel)]="product.name" name="name" maxlength="50" 
+         pattern="^[a-zA-Záéíóúñ/ ]+$" #name="ngModel" required>
       </div>
 
 
-      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+      <div *ngIf="name.invalid && (name.dirty || name.touched)"
       class="alert alert-danger">
 
-        <div *ngIf="nombre.errors.required">
+        <div *ngIf="name.errors.required">
           El nombre es obligatorio
         </div>
-        <div *ngIf="nombre.errors.pattern">
+        <div *ngIf="name.errors.pattern">
           El nombre no puede tener caracteres especiales
         </div>
       </div>
@@ -48,14 +48,14 @@
       
       <div class="form-group">
         <label>Precio</label>
-        <input type="number" step="any" class="form-control" id="precio"
-        [(ngModel)]="product.precio" name="precio" min="0" max="9999999999"
-         #precio="ngModel" required>
+        <input type="number" step="any" class="form-control" id="price"
+        [(ngModel)]="product.price" name="price" min="0" max="9999999999"
+         #price="ngModel" required>
       </div>
 
-      <div *ngIf="precio.invalid && (precio.dirty || precio.touched)"
+      <div *ngIf="price.invalid && (price.dirty || price.touched)"
       class="alert alert-danger">
-        <div *ngIf="precio.errors.required">
+        <div *ngIf="price.errors.required">
          El precio es obligatorio/ Debe ser un numero
         </div>
         
@@ -83,7 +83,7 @@
       </button>
     </div>
     <div class="modal-body">
-      Estas que seguro que deseas eliminar al producto {{product.nombre}}?
+      Estas que seguro que deseas eliminar al producto {{product.name}}?
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger" (click)="deleteProduct(product)">Eliminar</button>

@@ -36,7 +36,7 @@ export class ProductsService {
      */
 
   getProductList() {
-    let apiURL =  `${this.API_URL}/articulo/`
+    let apiURL =  `${this.API_URL}/product/`
     return this.http.get<Productmodel[]>(apiURL).pipe(
     tap(clients => console.log("Fetched products")),
     catchError(this.handleError('getProductList'))
@@ -52,7 +52,7 @@ export class ProductsService {
      * @memberof ProductsService
      */
     addProduct(product: Productmodel):Observable<any>{
-      let apiURL =  `${this.API_URL}/articulo/`
+      let apiURL =  `${this.API_URL}/product/`
       return this.http.post<Productmodel>(apiURL, product, httpOptions).pipe(
           tap((client: Productmodel) => console.log("Product added")),
           catchError(this.handleError<any>('addProduct'))
@@ -68,7 +68,7 @@ export class ProductsService {
      * @memberof ProductsService
      */
     updateProduct(product: Productmodel):Observable<any>{
-      let apiURL =  `${this.API_URL}/articulo/${product.pk}/`
+      let apiURL =  `${this.API_URL}/product/${product.pk}/`
       return this.http.put(apiURL, product, httpOptions).pipe(
           tap(_ => console.log(`update product ${product.pk}`)),
           catchError(this.handleError<any>('updateProduct'))
@@ -84,7 +84,7 @@ export class ProductsService {
      * @memberof ProductService
      */
     deleteProduct(product: Productmodel):Observable<any>{
-      let apiURL = `${this.API_URL}/articulo/${product.pk}/`
+      let apiURL = `${this.API_URL}/product/${product.pk}/`
       return this.http.delete<Productmodel>(apiURL, httpOptions).pipe(
           tap(_ => console.log(`delete product ${product.pk}`)),
           catchError(this.handleError<any>('deleteProduct'))
@@ -93,7 +93,7 @@ export class ProductsService {
 
 
   /**
-     * Method to handle errors
+     * Method to handle error
      *
      * @private
      * @template T

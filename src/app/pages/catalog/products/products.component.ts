@@ -33,11 +33,11 @@ export class  ProductsComponent{
       deleteButtonContent: '<i class="nb-trash"></i>',
     },
     columns: {
-      nombre: {
+      name: {
         title: 'Nombre',
         type: 'string',
       },
-      precio: {
+      price: {
         title: 'Precio',
         type: 'number',
       },
