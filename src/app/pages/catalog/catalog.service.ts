@@ -13,9 +13,9 @@ export class CatalogService extends BaseService {
   
   // Assitants Methods
 
-  get_assistants(){
+  getAssistants(){
     let observers = new BehaviorSubject(null);
-    this.getJSON('/assistants').subscribe(data => {
+    this.getBase('assistant/').subscribe(data => {
       var assitants = data;
       observers.next(assitants);
     }, error => {

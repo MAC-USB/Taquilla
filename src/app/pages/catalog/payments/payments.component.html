@@ -29,7 +29,7 @@
         <label>Assistant</label>
         <select class="form-control" required>
           <option disabled>Select an assistant...</option>
-          <!-- <option *ngFor="let category of productCategories" [ngValue]="category">{{category?.name}}</option> -->
+          <option *ngFor="let assistant of assistants" [ngValue]="initials">{{assistant?.initials}}</option>
         </select>
       </div>
 

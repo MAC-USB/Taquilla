@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // ng2-smart-table
 import { LocalDataSource } from 'ng2-smart-table';
@@ -6,12 +6,39 @@ import { LocalDataSource } from 'ng2-smart-table';
 // Angular Modal Component
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+// PROVIDERS
+import { CatalogService } from '../catalog.service';
+
+// MODELS
+import { Assistant } from '../../../models/assistant.model';
+
 @Component({
   selector: 'mac-payments',
   styleUrls: ['./payments.component.scss'],
   templateUrl: './payments.component.html',
 })
-export class PaymentsComponent {
+export class PaymentsComponent implements OnInit {
+
+  constructor(
+    private modalService: NgbModal,
+    private catalogService: CatalogService,
+  ) {
+    // console.log(this.payments);
+    // this.sourcePayments.load(this.payments);
+  }
+
+  assistants: Array<Assistant> = [];
+
+  ngOnInit(){
+    this.getAssistants();
+  }
+
+  getAssistants(){
+    this.catalogService.getAssistants().subscribe(data => {
+      console.log("Preparadores: ", data);
+      this.assistants = data;
+    });
+  }
 
   //Variables declaration
   payments: any = [
@@ -118,12 +145,7 @@ export class PaymentsComponent {
 
   sourcePayments: LocalDataSource = new LocalDataSource();
 
-  constructor(
-    private modalService: NgbModal,
-  ) {
-    console.log(this.payments);
-    this.sourcePayments.load(this.payments);
-  }
+  
 
   onCreate(event, content){
     this.modalService.open(content, { size: 'lg' });
