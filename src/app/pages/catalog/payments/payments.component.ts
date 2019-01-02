@@ -11,6 +11,7 @@ import { CatalogService } from '../catalog.service';
 
 // MODELS
 import { Assistant } from '../../../models/assistant.model';
+import { Client } from '../../../models/client.model';
 
 @Component({
   selector: 'mac-payments',
@@ -28,15 +29,24 @@ export class PaymentsComponent implements OnInit {
   }
 
   assistants: Array<Assistant> = [];
+  clients: Array<Client> = [];
 
   ngOnInit(){
     this.getAssistants();
+    this.getClients();
   }
 
   getAssistants(){
     this.catalogService.getAssistants().subscribe(data => {
       console.log("Preparadores: ", data);
       this.assistants = data;
+    });
+  }
+
+  getClients(){
+    this.catalogService.getClients().subscribe(data => {
+      console.log("Clientes: ", data);
+      this.clients = data;
     });
   }
 
@@ -112,16 +122,16 @@ export class PaymentsComponent implements OnInit {
     },
     columns: {
       date: {
-        title: 'Date',
+        title: 'Fecha',
         type: 'string',
       },
       assistant: {
-        title: 'Assistant',
+        title: 'Preparador',
         type: 'string',
         valuePrepareFunction: (assistant: any) => { return assistant.initials },
       },
       client: {
-        title: 'Client',
+        title: 'Cliente',
         type: 'string',
         valuePrepareFunction: (client: any) => { return client.name },
       },
@@ -131,12 +141,12 @@ export class PaymentsComponent implements OnInit {
         valuePrepareFunction: (total: number) => { return total.toLocaleString('es', { minimumFractionDigits: 2 }); },
       },
       method: {
-        title: 'Payment Method',
+        title: 'Método de Pago',
         type: 'string',
         valuePrepareFunction: (method: any) => { return method.description },
       },
       status: {
-        title: 'Status',
+        title: 'Estado',
         type: 'string',
         valuePrepareFunction: (status: any) => { return status.description },
       }

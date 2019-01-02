@@ -1,6 +1,6 @@
 <nb-card>
   <nb-card-header>
-    Payments
+    Pagos
   </nb-card-header>
   <nb-card-body>
     <ng2-smart-table 
@@ -16,7 +16,7 @@
 <!-- New Payment Modal -->
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Add Payment</h4>
+    <h4 class="modal-title">Agregar Pago</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -26,19 +26,23 @@
     <form #paymentsForm="ngForm" (ngSubmit)="submitPaymentsForm(paymentsForm.value)">
       
       <div class="form-group">
-        <label>Assistant</label>
+        <label>Preparador</label>
         <select class="form-control" required>
-          <option disabled>Select an assistant...</option>
-          <option *ngFor="let assistant of assistants" [ngValue]="initials">{{assistant?.initials}}</option>
+          <option disabled>Seleccione un preparador...</option>
+          <option *ngFor="let assistant of assistants" [ngValue]="assistant.id_document">{{assistant?.initials}}</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label>Client</label>
+        <label>Cliente</label>
+        <select class="form-control" required>
+          <option disabled>Seleccione un cliente...</option>
+          <option *ngFor="let client of clients">{{ client?.id_document }} {{ client?.first_name }} {{ client?.last_name }}</option>
+        </select>
       </div>
 
       <div class="form-group">
-        <label>Payment Method</label>
+        <label>Método de Pago</label>
       </div>
 
     </form>
