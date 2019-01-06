@@ -3,13 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProductsComponent } from './products/products.component';
 import { CatalogComponent } from './catalog.component';
+import { PreparadoresComponent } from './preparadores/preparadores.component';
 
 const routes: Routes = [{
   path: '',
-  component: ProductsComponent,
+  component: CatalogComponent,
   children: [{
     path: 'products',
-    component: CatalogComponent,
+    component: ProductsComponent,
+  }, {
+    path: 'preparadores',
+    component: PreparadoresComponent,
   }],
 }];
 
@@ -22,4 +26,5 @@ export class CatalogRoutingModule { }
 export const routedComponents = [
   ProductsComponent,
   CatalogComponent,
+  PreparadoresComponent,
 ];
