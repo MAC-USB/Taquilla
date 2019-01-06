@@ -8,19 +8,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'FEATURES',
-    group: true,
-  },
-  {
-    title: 'Catalog',
+    title: 'Catalogo',
+    icon: 'nb-coffee-maker',
+    link: '/pages/catalog',
     children: [
       {
+        title: 'Articulos',
+        link: '/pages/catalog/products',
+      }, {
         title: 'Preparadores',
-        link: '/pages/preparadores',
-      },
-    ],
+        link: '/pages/catalog/preparadores',
+      }],
   },
   {
+    title: 'FEATURES',
+    group: true,
+  },{
     title: 'UI Features',
     icon: 'nb-keypad',
     link: '/pages/ui-features',
