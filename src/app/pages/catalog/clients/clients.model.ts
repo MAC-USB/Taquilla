@@ -3,8 +3,8 @@
  * @class Clientmodel
  */
 export class Clientmodel {
-    cedula: string;
-    nombre: string;
-    apellido: string;
-    telefono: string
+    id_document: string;
+    first_name: string;
+    last_name: string;
+    phone_number: string
 }

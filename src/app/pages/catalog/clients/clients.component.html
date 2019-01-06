@@ -29,7 +29,7 @@
         <div class="form-group">
           <label>Cédula</label>
           <input type="text" class="form-control" id="cedula"
-          [(ngModel)]="clientemodel.cedula" name="cedula" maxlength="10" 
+          [(ngModel)]="clientemodel.id_document" name="cedula" maxlength="10" 
           pattern="^[V|E|J|P]\-[0-9]{5,8}$" #cedula="ngModel" required>
         </div>
 
@@ -48,7 +48,7 @@
       <div class="form-group">
         <label>Nombre</label>
         <input type="text" class="form-control" id="name"
-        [(ngModel)]="clientemodel.nombre" name="name" maxlength="50"
+        [(ngModel)]="clientemodel.first_name" name="name" maxlength="50"
         pattern="[a-zA-Z]*" #name="ngModel" required>
       </div>
 
@@ -65,7 +65,7 @@
       <div class="form-group">
         <label>Apellido</label>
         <input type="text" class="form-control" id="last_name"
-        [(ngModel)]="clientemodel.apellido" name="last_name" maxlength="50"
+        [(ngModel)]="clientemodel.last_name" name="last_name" maxlength="50"
         pattern="[a-zA-Z]*" #last_name="ngModel" required>
       </div>
 
@@ -82,7 +82,7 @@
       <div class="form-group">
         <label>Teléfono</label>
         <input type="text" class="form-control" id="phone"
-        [(ngModel)]="clientemodel.telefono" name="phone" maxlength="15"
+        [(ngModel)]="clientemodel.phone_number" name="phone" maxlength="15"
         pattern="^[(]?\d{3}[)]?\s?-?\s?\d{3}\s?-?\s?\d{4}$" #phone="ngModel" required>
       </div>
         <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
@@ -114,7 +114,7 @@
     </button>
   </div>
   <div class="modal-body">
-    Estas que seguro que deseas eliminar al cliente {{clientemodel.nombre}}?
+    Estas que seguro que deseas eliminar al cliente {{clientemodel.first_name}}?
   </div>
   <div class="modal-footer">
     <button class="btn btn-danger" (click)="onDeleteConfirm(clientemodel)">Eliminar</button>

@@ -40,20 +40,20 @@ export class ClientsComponent {
       deleteButtonContent: '<i class="nb-trash"></i>'
     },
     columns: {
-      cedula: {
+      id_document: {
         title: 'Cédula',
         type: 'string',
         editable: false
       },
-      nombre: {
+      first_name: {
         title: 'Nombre',
         type: 'string',
       },
-      apellido: {
+      last_name: {
         title: 'Apellido',
         type: 'string',
       },
-      telefono: {
+      phone_number: {
         title: 'Teléfono',
         type: 'string',
       },

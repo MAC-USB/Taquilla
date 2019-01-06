@@ -39,7 +39,7 @@ export class ClientService {
      * @memberof ClientService
      */
     getClients():Observable<any>{
-        let apiURL =  `${this.API_URL}/cliente/`
+        let apiURL =  `${this.API_URL}/client/`
         return this.http.get<Clientmodel[]>(apiURL).pipe(
             tap(clients => console.log("Fetched clients")),
             catchError(this.handleError('getClients'))
@@ -55,7 +55,7 @@ export class ClientService {
      * @memberof ClientService
      */
     addClient(client: Clientmodel):Observable<any>{
-        let apiURL =  `${this.API_URL}/cliente/`
+        let apiURL =  `${this.API_URL}/client/`
         return this.http.post<Clientmodel>(apiURL, client, httpOptions).pipe(
             tap((client: Clientmodel) => console.log("Client added")),
             catchError(this.handleError<any>('addClient'))
@@ -71,9 +71,9 @@ export class ClientService {
      * @memberof ClientService
      */
     updateClient(client: Clientmodel):Observable<any>{
-        let apiURL =  `${this.API_URL}/cliente/${client.cedula}/`
+        let apiURL =  `${this.API_URL}/client/${client.id_document}/`
         return this.http.put(apiURL, client, httpOptions).pipe(
-            tap(_ => console.log(`update client ${client.cedula}`)),
+            tap(_ => console.log(`update client ${client.id_document}`)),
             catchError(this.handleError<any>('updateClient'))
         )
     }
@@ -87,9 +87,9 @@ export class ClientService {
      * @memberof ClientService
      */
     deleteClient(client: Clientmodel):Observable<any>{
-        let apiURL = `${this.API_URL}/cliente/${client.cedula}/`
+        let apiURL = `${this.API_URL}/client/${client.id_document}/`
         return this.http.delete<Clientmodel>(apiURL, httpOptions).pipe(
-            tap(_ => console.log(`delete client ${client.cedula}`)),
+            tap(_ => console.log(`delete client ${client.id_document}`)),
             catchError(this.handleError<any>('deleteClient'))
         )
     }
