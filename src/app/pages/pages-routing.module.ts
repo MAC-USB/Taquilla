@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
-import { ClientsComponent } from './catalog/clients/clients.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,9 +12,6 @@ const routes: Routes = [{
     path: 'dashboard',
     component: DashboardComponent,
   }, {
-    path: 'clients',
-    component: ClientsComponent,
-  },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {
@@ -39,7 +35,10 @@ const routes: Routes = [{
   }, {
     path: 'miscellaneous',
     loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
-  },{
+  }, {
+    path: 'catalog',
+    loadChildren: './catalog/catalog.module#CatalogModule',
+  }, {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

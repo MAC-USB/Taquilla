@@ -8,17 +8,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'FEATURES',
+    title: 'Rama JT',
     group: true,
   },
   {
-    title: 'Catalog',
+    title: 'Catalogo',
+    icon: 'nb-coffee-maker',
+    link: '/pages/catalog',
     children: [
       {
+        title: 'Articulos',
+        link: '/pages/catalog/products',
+      },
+      {
         title: 'Clientes',
-        link: '/pages/clients'
+        link: '/pages/catalog/clients'
       }
-    ]
+    ],
+  },
+  {
+    title: 'FEATURES',
+    group: true,
   },
   {
     title: 'UI Features',
