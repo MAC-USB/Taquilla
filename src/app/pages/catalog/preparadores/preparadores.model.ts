@@ -3,11 +3,11 @@
  * @class Preparadormodel
  */
 export class Preparadormodel {
-    cedula:         string;
-    iniciales:      string;
-    nombre:         string;
-    apellido:       string;
-    cantidad_deuda: number;
-    fecha_deuda:    string;
-    correo:         string;
+    id_document:         string;
+    initials:      string;
+    first_name:         string;
+    last_name:       string;
+    debt_amount: number;
+    debt_date:    string;
+    email:         string;
 }

@@ -38,7 +38,7 @@ export class PreparadorService {
      * @memberof PreparadorService
      */
     getPreparadores():Observable<any>{
-        let apiURL =  `${this.API_URL}/preparador/`
+        let apiURL =  `${this.API_URL}/assistant/`
         return this.http.get<Preparadormodel[]>(apiURL).pipe(
             catchError(this.handleError('getPreparadores'))
         )
@@ -53,7 +53,7 @@ export class PreparadorService {
      * @memberof PreparadorService
      */
     addPreparador(preparador: Preparadormodel):Observable<any>{
-        let apiURL =  `${this.API_URL}/preparador/`
+        let apiURL =  `${this.API_URL}/assistant/`
         return this.http.post<Preparadormodel>(apiURL, preparador, httpOptions).pipe(
             catchError(this.handleError<any>('addPreparadores'))
         )
@@ -68,9 +68,9 @@ export class PreparadorService {
      * @memberof PreparadorService
      */
     updatePreparador(preparador: Preparadormodel):Observable<any>{
-        let apiURL =  `${this.API_URL}/preparador/${preparador.cedula}/`
+        let apiURL =  `${this.API_URL}/assistant/${preparador.id_document}/`
         return this.http.put(apiURL, preparador, httpOptions).pipe(
-            tap(_ => console.log(`update preparador ${preparador.cedula}`)),
+            tap(_ => console.log(`update preparador ${preparador.id_document}`)),
             catchError(this.handleError<any>('updatePreparador'))
         )
     }
@@ -84,7 +84,7 @@ export class PreparadorService {
      * @memberof PreparadorService
      */
     deletePreparador(preparador: Preparadormodel):Observable<any>{
-        let apiURL = `${this.API_URL}/preparador/${preparador.cedula}/`
+        let apiURL = `${this.API_URL}/assistant/${preparador.id_document}/`
         return this.http.delete<Preparadormodel>(apiURL, httpOptions).pipe(
             catchError(this.handleError<any>('deletePreparador'))
         )

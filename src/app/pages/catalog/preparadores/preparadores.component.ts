@@ -41,24 +41,24 @@ export class PreparadoresComponent {
       deleteButtonContent: '<i class="nb-trash"></i>'
     },
     columns: {
-      cedula: {
+      id_document: {
         title: 'Cédula',
         type: 'string',
         editable: false
       },
-      iniciales: {
+      initials: {
         title: 'Iniciales',
         type: 'string',
       },
-      nombre: {
+      first_name: {
         title: 'Nombre',
         type: 'string',
       },
-      apellido: {
+      last_name: {
         title: 'Apellido',
         type: 'string',
       },
-      correo: {
+      email: {
         title: 'Correo',
         type: 'string',
       },
@@ -68,7 +68,7 @@ export class PreparadoresComponent {
   source: LocalDataSource = new LocalDataSource();
   preparadormodel: Preparadormodel = new Preparadormodel();
   activeModal: any;
-  apiurl = "preparador/"
+  apiurl = "assistant/"
   config:ToasterConfig = new ToasterConfig({
     positionClass: 'toast-top-full-width',
     timeout: 30000,
@@ -110,7 +110,7 @@ export class PreparadoresComponent {
    * @memberof PreparadoresComponent
    */
   onDeleteConfirm(preparador: Preparadormodel): void {
-    let apiurl = `${this.apiurl}${preparador.cedula}/`
+    let apiurl = `${this.apiurl}${preparador.id_document}/`
     this.preparadoresService.deleteBase(preparador, apiurl).subscribe(preparador =>{
       if (preparador == null){
         this.activeModal.dismiss()
@@ -127,7 +127,7 @@ export class PreparadoresComponent {
    * @memberof PreparadoresComponent
    */
   editPreparador():void {
-    let apiurl = `${this.apiurl}${this.preparadormodel.cedula}/`
+    let apiurl = `${this.apiurl}${this.preparadormodel.id_document}/`
     this.preparadoresService.updateBase(this.preparadormodel, apiurl).subscribe(preparador =>{
         if (!preparador.error){
           console.log(preparador)
