@@ -20,6 +20,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Articulos',
         link: '/pages/catalog/products',
       },
+      {
+        title: 'Clientes',
+        link: '/pages/catalog/clients'
+      }
     ],
   },
   {
@@ -62,7 +66,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Tabs',
         link: '/pages/ui-features/tabs',
-      },
+      }
     ],
   },
   {
